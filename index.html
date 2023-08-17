@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Median Filter Landcover</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="vendor/maplibregl/maplibre-gl.js"></script>
+    <link href="vendor/maplibregl/maplibre-gl.css" rel="stylesheet" />
+    <script src="vendor/pmtiles/index.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+
+        let protocol = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol.tile);
+
+        // local url: "http://localhost:3000/planetiler/data/median-filter-landcover.pmtiles";
+        let PMTILES_URL = "https://wipfli.github.io/median-filter-landcover/planetiler/data/median-filter-landcover.pmtiles";
+
+        const p = new pmtiles.PMTiles(PMTILES_URL)
+
+        protocol.add(p);
+
+        p.getHeader().then(h => {
+            const map = new maplibregl.Map({
+                hash: "map",
+                container: 'map',
+                zoom: 1,
+                center: [0, 0],
+                style: {
+                    version: 8,
+                    sources: {
+                        "koppen": {
+                            type: "vector",
+                            url: "pmtiles://" + PMTILES_URL,
+                            attribution: 'Beck et al. [2018]'
+                        }
+                    },
+                    layers: [
+                        {
+                            "id": "blue",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 0],
+                            "paint": {
+                                "fill-color": "#8ab4f8"
+                            }
+                        },
+                        {
+                            "id": "light-green",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 50],
+                            "paint": {
+                                "fill-color": "#bbe2c6"
+                            }
+                        },
+                        {
+                            "id": "green",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 100],
+                            "paint": {
+                                "fill-color": "#a8dab5"
+                            }
+                        },
+                        {
+                            "id": "light-brown",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 150],
+                            "paint": {
+                                "fill-color": "#fbf8f3"
+                            }
+                        },
+                        {
+                            "id": "dark-brown",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 200],
+                            "paint": {
+                                "fill-color": "#f5f0e4"
+                            }
+                        },
+                        {
+                            "id": "white",
+                            "type": "fill",
+                            "source": "koppen",
+                            "source-layer": "koppen",
+                            "filter": ["==", ["get", "DN"], 250],
+                            "paint": {
+                                "fill-color": "#ffffff"
+                            }
+                        }
+                    ]
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
