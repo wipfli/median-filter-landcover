@@ -1,0 +1,38 @@
+[
+    {
+        "name": "blue",
+        "color": "#8ab4f8",
+        "values": [0],
+        "grayscale": 0
+    },
+    {
+        "name": "light-green",
+        "color": "#bbe2c6",
+        "values": [3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
+        "grayscale": 50
+    },
+    {
+        "name": "green",
+        "color": "#a8dab5",
+        "values": [1, 2],
+        "grayscale": 100
+    },
+    {
+        "name": "light-brown",
+        "color": "#fbf8f3",
+        "values": [4],
+        "grayscale": 150
+    },
+    {
+        "name": "dark-brown",
+        "color": "#f5f0e4",
+        "values": [5, 6, 7],
+        "grayscale": 200
+    },
+    {
+        "name": "white",
+        "color": "#ffffff",
+        "values": [29, 30],
+        "grayscale": 250
+    }
+]
